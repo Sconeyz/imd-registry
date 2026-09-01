@@ -1,2 +1,4 @@
 out/
 cache/
+# forge-std v1.16.2 vendored by forge init (own .git; not tracked here)
+lib/
