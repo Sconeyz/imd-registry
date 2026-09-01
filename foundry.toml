@@ -1,0 +1,13 @@
+[profile.default]
+src = "src"
+test = "test"
+out = "out"
+libs = ["lib"]
+# Compiler settings match the registry-gas-20260831 measurement artifact so the
+# gas figures stay comparable. No rpc_endpoints section on purpose: the fork URL
+# is passed at invocation and never committed (phase-1 rule).
+solc_version = "0.8.26"
+optimizer = true
+optimizer_runs = 200
+via_ir = false
+evm_version = "prague"
