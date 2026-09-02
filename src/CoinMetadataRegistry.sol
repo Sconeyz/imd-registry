@@ -9,13 +9,15 @@ interface ILaunchpadHook {
 ///         Events are the entire record: the reader takes latest-event-wins,
 ///         so there is deliberately no metadata storage, no owner, no pause,
 ///         and no upgrade path. The hook address is fixed at construction —
-///         one registry per factory.
+///         one registry per factory — and must already hold code, so a
+///         registry cannot be deployed against an EOA or an empty address.
 contract CoinMetadataRegistry {
     ILaunchpadHook public immutable HOOK;
 
     event MetadataSet(address indexed coin, address indexed creator, string uri);
 
     constructor(address hook) {
+        require(hook.code.length > 0, "hook not a contract");
         HOOK = ILaunchpadHook(hook);
     }
 

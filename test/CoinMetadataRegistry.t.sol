@@ -5,6 +5,7 @@ import {Test} from "forge-std/Test.sol";
 import {Vm} from "forge-std/Vm.sol";
 import {CoinMetadataRegistry} from "../src/CoinMetadataRegistry.sol";
 import {MockHook} from "./mocks/MockHook.sol";
+import {RevertingHook} from "./mocks/RevertingHook.sol";
 
 /// @notice A creator that is itself a contract. The design has to survive
 ///         contract creators (multisigs, smart accounts) — this was a deciding
@@ -120,5 +121,33 @@ contract CoinMetadataRegistryTest is Test {
         vm.prank(caller);
         vm.expectRevert(bytes("not creator"));
         registry.setMetadata(COIN, uri);
+    }
+
+    /// @notice The hook address is immutable and unverifiable after deploy, so
+    ///         the only chance to reject a codeless one is at construction.
+    function test_constructorRejectsNonContract() public {
+        vm.expectRevert(bytes("hook not a contract"));
+        new CoinMetadataRegistry(address(0));
+
+        address eoa = address(0xE0A1);
+        assertEq(eoa.code.length, 0);
+        vm.expectRevert(bytes("hook not a contract"));
+        new CoinMetadataRegistry(eoa);
+    }
+
+    /// @notice Hook failure must fail closed: a reverting creatorOf bubbles up
+    ///         and no metadata is recorded, rather than being swallowed into a
+    ///         permissive path.
+    function test_hookRevertPropagates() public {
+        RevertingHook broken = new RevertingHook();
+        CoinMetadataRegistry brokenRegistry = new CoinMetadataRegistry(address(broken));
+
+        vm.prank(CREATOR);
+        vm.expectRevert(bytes("hook is down"));
+        brokenRegistry.setMetadata(COIN, "ipfs://QmExample");
+
+        vm.prank(STRANGER);
+        vm.expectRevert(bytes("hook is down"));
+        brokenRegistry.setMetadata(COIN, "ipfs://QmExample");
     }
 }

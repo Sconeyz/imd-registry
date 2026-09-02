@@ -1,4 +1,6 @@
 out/
 cache/
-# forge-std v1.16.2 vendored by forge init (own .git; not tracked here)
+# forge-std v1.16.2 vendored by forge init (no .git, untracked; upstream
+# https://github.com/foundry-rs/forge-std, tag v1.16.2; test-only, does not
+# affect bytecode)
 lib/
