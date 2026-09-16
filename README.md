@@ -22,3 +22,7 @@ hash (immutable slots aside — see DEPLOYMENT.md).
 
 Running the tests (`forge build` / `forge test` with no path) needs
 forge-std v1.16.2 at `lib/forge-std`.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
