@@ -47,7 +47,7 @@ The contract does not check:
 
 ## 4. How to read
 
-The record is read off-chain from event logs. One JSON-RPC call returns
+The record is read off-chain from event logs. One JSON-RPC call can return
 every document ever set:
 
 ```json
@@ -104,10 +104,6 @@ The `uri` is a document. Version 1 is a JSON object with these members:
 - Unknown members are ignored by readers.
 - `symbol` is deliberately not a field: the coin's symbol is already on
   chain in the ERC-20 contract, and the document must not contradict it.
-- The reference reader also accepts a finite JSON number where a string is
-  expected and displays it as its decimal string; any other type is shown
-  as present-but-invalid. It does not reject a document for a missing or
-  different `v`.
 
 Recommended encoding: inline, as
 
@@ -117,11 +113,22 @@ data:application/json,<percent-encoded JSON>
 
 where the JSON is `JSON.stringify` output and percent-encoding is applied to
 exactly `%`, `#`, U+0000–U+001F and U+007F (`%25`, `%23`, `%00`–`%1F`,
-`%7F`). Everything else, including non-ASCII, is written raw. The reader
-percent-decodes the payload, so a `%` that is not a valid percent-sequence
-makes the document unparseable. The reader also accepts the
-`data:application/json;base64,` form and tolerates a `;charset=` parameter;
-any other scheme or media type is not parsed and is shown raw.
+`%7F`). Everything else, including non-ASCII, is written raw.
+
+A `uri` may instead point to a document by another scheme (for example
+`ipfs://` or `https://`); format v1 does not define fetching, and a reader
+decides for itself whether to fetch.
+
+### Behaviour of the reader at https://idmd-reader.pages.dev (not part of the format)
+
+It percent-decodes the inline payload, so a `%` that is not a valid
+percent-sequence makes the document unparseable. It also accepts the
+`data:application/json;base64,` form and tolerates a `;charset=` parameter.
+It accepts a finite JSON number where a string is expected and displays it
+as its decimal string; any other type is shown as present-but-invalid. It
+does not reject a document for a missing or different `v`. It does not fetch
+non-inline uris: any other scheme or media type is not parsed and is shown
+raw.
 
 ## 6. Disclosures
 
