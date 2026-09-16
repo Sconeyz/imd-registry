@@ -136,6 +136,6 @@ decision, not the registry's.
 **(b) History dependency.** Because the record is event logs and not
 contract storage, reading it depends on access to historical logs from the
 deploy block onward. Ethereum's history-expiry work (EIP-4444) allows nodes
-to stop serving old history; archive providers retain it. A reader must use
-a provider that serves logs back to block 25886424, and a provider that has
-dropped that range will return an empty or partial record without error.
+to stop serving old history; archive providers retain it. A reader needs a
+provider that serves logs back to block 25886424, and should not treat an
+empty result as proof that no document was ever set.
