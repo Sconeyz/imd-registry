@@ -1,66 +1,24 @@
-## Foundry
+# CoinMetadataRegistry
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+A registry where a launchpad coin's creator publishes one metadata
+document for that coin. Events only: no storage, no owner, no fees.
 
-Foundry consists of:
+- Specification: [SPEC.md](SPEC.md)
+- Deployment record (address, block, compiler settings): [DEPLOYMENT.md](DEPLOYMENT.md)
+- Contract: [src/CoinMetadataRegistry.sol](src/CoinMetadataRegistry.sol)
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+Deployed on Ethereum mainnet at
+`0xbf214a6274b747670e2E30039101F1D4b0Eff3C2`.
+A reader for it runs at https://idmd-reader.pages.dev.
 
-## Documentation
+## Reproduce the deployed bytecode
 
-https://book.getfoundry.sh/
+    forge build src/CoinMetadataRegistry.sol
 
-## Usage
+No dependencies are needed: the contract has no imports, and
+`remappings.txt` pins the compiler metadata. Built with forge 1.5.1 and
+solc 0.8.26, this reproduces the deployed runtime including its metadata
+hash (immutable slots aside — see DEPLOYMENT.md).
 
-### Build
-
-```shell
-$ forge build
-```
-
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+Running the tests (`forge build` / `forge test` with no path) needs
+forge-std v1.16.2 at `lib/forge-std`.
