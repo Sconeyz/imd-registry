@@ -6,3 +6,7 @@ cache/
 # compiler metadata, so remappings.txt (tracked) pins it and a clone without
 # lib/ reproduces the deployed metadata hash.
 lib/
+# local env files (RPC URLs, keys) — never tracked
+.env*
+# forge script broadcast records (tx data, sender, local paths) — never tracked
+broadcast/
