@@ -50,7 +50,7 @@ that one word — 991 bytes total, creation-code prefix byte-identical to
 
 | Field | Value |
 |---|---|
-| Commit | `748a613` (`748a6130619bff0c155c37254ea1fd0ea625b234`) |
+| Commit | `dbd33ec` (`dbd33ec5cb946070cf9716a418d528894d979ed1`, tree `f690ea7df030296e55eb312613c963378118499d`) |
 | Commit subject | review fixes: constructor rejects codeless hook; fail-closed test on hook revert; correct forge-std gitignore note (11 unit tests passing) |
 | Working tree at record time | clean (`git status --porcelain` empty) |
 
