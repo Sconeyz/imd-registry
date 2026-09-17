@@ -106,4 +106,4 @@ low-order 20 bytes of those two 32-byte slots) and nowhere else.
 
 ## Verification
 
-Etherscan source verification: NOT YET — deferred to board launch by decision 2026-09-01.
+Etherscan source verification: VERIFIED 2026-09-17 — "Successfully generated matching Bytecode and ABI"; Standard-Json-Input, compiler `v0.8.26+commit.8a97fa7a`, optimizer enabled, 200 runs; constructor arg `0x00000000000000000000000051768f5da32ba2008304cc81674da51acb802888` (the hook). [MEASURED] from the Etherscan result page.
