@@ -69,7 +69,7 @@ that one word — 991 bytes total, creation-code prefix byte-identical to
 compiler settles on `cancun`; the artifact's own metadata records `cancun`, and
 a forced rebuild from this exact `foundry.toml` reproduces `cancun` and the
 same runtime bytecode. The `prague` line in `foundry.toml` is therefore inert,
-not a description of what was built. [MEASURED] by rebuild at commit `748a613`.
+not a description of what was built. [MEASURED] by rebuild at commit `dbd33ec`.
 
 ## Runtime bytecode
 
